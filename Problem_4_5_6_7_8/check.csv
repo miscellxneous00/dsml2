@@ -1,0 +1,9 @@
+Age,Income,Gender,Buys
+Young,Low,Female,No
+Young,High,Female,Yes
+Middle,Low,Female,Yes
+Senior,High,Female,Yes
+Senior,Low,Male,No
+Senior,High,Male,Yes
+Middle,High,Male,Yes
+Young,Low,Male,No
