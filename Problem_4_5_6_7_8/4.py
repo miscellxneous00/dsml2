@@ -13,9 +13,15 @@ TARGET = "Buys"   # name of target column in CSV
 
 def load_csv(path):
     with open(path, newline='') as f:
-        reader = csv.DictReader(f)
-        data = [row for row in reader]
-    return data, reader.fieldnames
+        reader = csv.reader(f)
+        headers = next(reader)[1:]      # Skip first column
+        data = []
+
+        for row in reader:
+            row = row[1:]               # Drop Id column
+            data.append(dict(zip(headers, row)))
+
+    return data, headers
 
 def entropy(rows):
     # compute entropy for target column
@@ -65,6 +71,7 @@ class Node:
         else:
             return "Node({})".format(self.attribute)
 
+
 def id3(rows, attributes):
     # If no examples, return leaf with None (or could use default)
     if not rows:
@@ -90,7 +97,8 @@ def id3(rows, attributes):
     for attr_val, subset in parts.items():
         child = id3(subset, remaining_attrs)
         root.children[attr_val] = child
-    return root
+    return root 
+
 
 def print_tree(node, indent=""):
     if node.is_leaf:
@@ -103,6 +111,7 @@ def print_tree(node, indent=""):
         for val, child in node.children.items():
             print(indent + "  If {} = {}:".format(node.attribute, val))
             print_tree(child, indent + "    ")
+
 
 def find_root_attribute(path_to_csv):
     data, headers = load_csv(path_to_csv)
@@ -117,9 +126,9 @@ def find_root_attribute(path_to_csv):
     gains.sort(key=lambda x: x[1], reverse=True)
     return gains, data, attributes
 
+
 def main():
-    csv_path = "Cosmetics_Shop.csv"
-    # csv_path = "check.csv"
+    csv_path = "Lipstick.csv"
     gains, data, attributes = find_root_attribute(csv_path)
     print("Information gain for each attribute (sorted):")
     for a, g in gains:

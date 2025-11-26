@@ -10,11 +10,17 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-csv_path="./Cosmetics_Shop.csv"
+csv_path="./Lipstick.csv"
 
 df=pd.read_csv(csv_path)
 
 df.head()
+
+df['Age']
+
+# df['Age']=df['Age'].replace({"<21":"Young","21-35":"Adult",">35":"Old"})
+
+df=df.drop('Id',axis=1)
 
 df.info()
 
@@ -31,19 +37,21 @@ from sklearn.tree import DecisionTreeClassifier,plot_tree
 
 model = DecisionTreeClassifier()
 
-model.fit(X_train,y_train)
+model.fit(X,y)
 
 plt.figure(figsize=(10,8),dpi=200)
 plot_tree(model,feature_names=X.columns,filled=True)
 
-from sklearn.metrics import classification_report
+from sklearn.metrics import classification_report,confusion_matrix
 
 y_pred=model.predict(X_test)
 
 print(classification_report(y_test,y_pred))
 
+confusion_matrix(y_test,y_pred)
+
 test_1 = pd.DataFrame([{
-    "Age": 18,
+    "Age": "<21",
     "Income": "Low",
     "Gender": "Female",
     "Marital Status": "Married"
@@ -57,9 +65,8 @@ sample_X = sample_X[X.columns]   # Arrange in order
 
 print(model.predict(sample_X))
 
-
 test_2 = pd.DataFrame([{
-    "Age": 40,
+    "Age": ">35",
     "Income": "Medium",
     "Gender": "Female",
     "Marital Status": "Married"
@@ -73,10 +80,8 @@ sample_X = sample_X[X.columns]   # Arrange in order
 
 print(model.predict(sample_X))
 
-
-
 test_3 = pd.DataFrame([{
-    "Age": 24,
+    "Age": "21-35",
     "Income": "Low",
     "Gender": "Male",
     "Marital Status": "Married"
