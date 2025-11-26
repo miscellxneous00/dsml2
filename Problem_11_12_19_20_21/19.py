@@ -5,21 +5,20 @@
 
 import pandas as pd
 
-csv_path = "./Iris.csv"
+csv_path = "./IRIS 2.csv"
 
 df=pd.read_csv(csv_path)
 
 df.head()
 
-df['Species'].value_counts()
+df['species'].value_counts()
 
 species = ['Iris-setosa','Iris-versicolor','Iris-virginica']
 
 for sp in species:
     print(f"\n========= Statistics for {sp} =========\n")
 
-    species_df = df[df["Species"] == sp]
-    species_df = species_df.drop("Id", axis=1)
+    species_df = df[df["species"] == sp]
 
     print("Summary Statistics:\n", species_df.describe(), "\n")
 

@@ -12,7 +12,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-csv_path = "./Iris.csv"
+csv_path = "./IRIS 2.csv"
 
 df=pd.read_csv(csv_path)
 
@@ -39,9 +39,9 @@ for col in categorical_cols:
     print(col)
 
 plt.figure(figsize=(6,4))
-plt.hist(df['SepalLengthCm'].dropna(),edgecolor="black")
+plt.hist(df['sepal_length'].dropna(),edgecolor="black")
 plt.title(f"Histogram of SepalLengthCm")
-plt.xlabel('SepalLengthCm')
+plt.xlabel('sepal_length')
 plt.ylabel('frequency')
 plt.grid(axis='y', alpha=0.3)
 plt.tight_layout()

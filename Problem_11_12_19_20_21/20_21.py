@@ -4,7 +4,6 @@
 # points. Iterate at least for 10 iterations. After iterations are over, print the
 # final cluster means for each of the clusters.
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -24,7 +23,7 @@ df
 
 print('final cluster means are :')
 for i,center in enumerate(model.cluster_centers_):
-    print(f"Centroid {1} has centered at {center}")
+    print(f"Centroid {i} has centered at {center}")
 
 
 # Write a program to cluster a set of points using K-means for IRIS
